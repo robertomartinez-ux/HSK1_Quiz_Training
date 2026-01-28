@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HSK 1 – Quiz</title>
 
 <style>
@@ -17,31 +18,32 @@ body {
 
 .card {
     background: white;
-    padding: 30px;
-    width: 350px;
+    padding: 24px;
+    width: 100%;
+    max-width: 380px;
     text-align: center;
-    border-radius: 10px;
+    border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-
 }
 
 .char {
-    font-size: 60px;
+    font-size: clamp(48px, 10vw, 64px);
     margin-bottom: 10px;
 }
 
 .pinyin {
-    font-size: 20px;
+    font-size: clamp(16px, 4vw, 20px);
     color: #555;
     margin-bottom: 20px;
 }
 
 button {
     width: 100%;
-    padding: 10px;
-    margin: 5px 0;
-    font-size: 16px;
+    padding: 14px;
+    margin: 8px 0;
+    font-size: clamp(15px, 4vw, 16px);
     cursor: pointer;
+    border-radius: 8px;
 }
 
 .correct {
@@ -60,7 +62,7 @@ button {
 }
 .feedback {
     margin-top: 10px;
-    font-size: 14px;
+    font-size: clamp(13px, 3.5vw, 14px);
     color: #333;
 }
 
@@ -77,6 +79,12 @@ button {
 
 .tiktok a:hover {
     color: #000;
+}
+@media (max-width: 480px) {
+    .tiktok {
+        font-size: 13px;
+        text-align: center;
+    }
 }
 </style>
 </head>
@@ -233,4 +241,5 @@ loadWord();
 
 </body>
 </html>
+
 
