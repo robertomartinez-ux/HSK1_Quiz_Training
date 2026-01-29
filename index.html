@@ -6,6 +6,20 @@
 <title>HSK 1 – Quiz</title>
 
 <style>
+    .tiktok {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #555;
+}
+
+.tiktok a {
+    text-decoration: none;
+    color: #555;
+}
+
+.tiktok a:hover {
+    color: #000;
+}
 body {
     font-family: Arial, sans-serif;
     background: #f4f6f8;
@@ -127,6 +141,7 @@ function startGame() {
     document.getElementById("menu").style.display = "none";
     document.getElementById("game").style.display = "block";
     document.querySelector('button[onclick="sendScore()"]').style.display = "block";
+    document.getElementById("follow").style.display = "block";
 
     loadWord();
 }
@@ -147,6 +162,7 @@ function startSurvival() {
     document.getElementById("menu").style.display = "none";
     document.getElementById("game").style.display = "block";
     document.querySelector('button[onclick="sendScore()"]').style.display = "block";
+    document.getElementById("follow").style.display = "block";
 
     loadWord();
 }
@@ -167,6 +183,7 @@ function startSurvivalHard() {
     document.getElementById("menu").style.display = "none";
     document.getElementById("game").style.display = "block";
     document.querySelector('button[onclick="sendScore()"]').style.display = "block";
+    document.getElementById("follow").style.display = "block";
 
     loadWord();
 }
@@ -233,6 +250,7 @@ function loadWord() {
 
 function checkAnswer(button, answer) {
     document.querySelectorAll("#options button").forEach(b => b.disabled = true);
+    document.getElementById("follow").style.display = "none";
 
     if (answer === current.m) {
         button.className = "correct";
@@ -268,6 +286,7 @@ if (lives === 0) {
 
 </body>
 </html>
+
 
 
 
