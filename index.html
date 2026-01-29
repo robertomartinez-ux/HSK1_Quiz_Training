@@ -247,13 +247,15 @@ function checkAnswer(button, answer) {
         if (mode === "survival") {
             lives--;
             updateLives();
-            if (lives === 0) {
-                setTimeout(() => {
-                    alert("💀 Game Over");
-                    backToMenu();
-                }, 800);
-                return;
-            }
+if (lives === 0) {
+    document.getElementById("feedback").innerHTML =
+        "💀 <strong>Game Over</strong><br>Puedes enviar tu score antes de salir";
+
+    // MOSTRAR botón enviar score
+    document.querySelector('button[onclick="sendScore()"]').style.display = "block";
+
+    return; // ⛔ NO regresamos al menú aún
+}
         }
     }
 
@@ -263,5 +265,6 @@ function checkAnswer(button, answer) {
 
 </body>
 </html>
+
 
 
