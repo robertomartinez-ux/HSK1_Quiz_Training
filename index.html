@@ -172,12 +172,17 @@ function backToMenu() {
     document.getElementById("game").style.display = "none";
     document.getElementById("menu").style.display = "block";
     document.getElementById("feedback").innerText = "";
+    document.getElementById("modeLabel").innerText = "";
 }
 
 function loadWord() {
 
     if (mode === "survival" && usedWords.length === words.length) {
-        alert("🎉 ¡Completaste todas las palabras!");
+        alert(
+            difficulty === "hard"
+            ? "💀🏆 ¡Completaste HARD!"
+            : "🎉 ¡Completaste Supervivencia!"
+        );
         backToMenu();
         return;
     }
@@ -205,6 +210,7 @@ function loadWord() {
     if (!opts.includes(current.m)) {
         opts[Math.floor(Math.random() * opts.length)] = current.m;
     }
+    
 
     const optionsDiv = document.getElementById("options");
     const feedbackDiv = document.getElementById("feedback");
@@ -253,3 +259,4 @@ function checkAnswer(button, answer) {
 
 </body>
 </html>
+
