@@ -84,7 +84,7 @@ button {
 <!-- JUEGO -->
 <div class="card" id="game" style="display:none">
 
-    <button onclick="backToMenu()">⬅️ Volver al menú</button>
+    <button id="backBtn" onclick="backToMenu()">⬅️ Volver al menú</button>
 
     <div id="lives">❤️❤️❤️</div>
     <div id="score">✅ Aciertos: <strong>0</strong></div>
@@ -114,10 +114,15 @@ const words = [
 function startGame() {
     mode = "game";
     score = 0;
+
     document.querySelector("#score strong").innerText = score;
+
     document.getElementById("lives").style.display = "none";
+    document.getElementById("backBtn").style.display = "block";
+
     document.getElementById("menu").style.display = "none";
     document.getElementById("game").style.display = "block";
+
     loadWord();
 }
 
@@ -125,11 +130,16 @@ function startSurvival() {
     mode = "survival";
     lives = 3;
     score = 0;
+
     updateLives();
     document.querySelector("#score strong").innerText = score;
+
     document.getElementById("lives").style.display = "block";
+    document.getElementById("backBtn").style.display = "none";
+
     document.getElementById("menu").style.display = "none";
     document.getElementById("game").style.display = "block";
+
     loadWord();
 }
 
@@ -139,8 +149,10 @@ function updateLives() {
 
 function backToMenu() {
     mode = "";
+
     document.getElementById("game").style.display = "none";
     document.getElementById("menu").style.display = "block";
+
     document.getElementById("feedback").innerHTML = "";
 }
 
@@ -204,6 +216,7 @@ function checkAnswer(button, answer) {
 
 </body>
 </html>
+
 
 
 
