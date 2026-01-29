@@ -70,8 +70,11 @@ button {
 
     <div id="options"></div>
     <div id="feedback" class="feedback"></div>
+    <button onclick="sendScore()">📤 Enviar score por correo</button>
 </div>
+    
 
+    
 <script>
 let mode = "";
 let difficulty = "normal";
@@ -91,7 +94,24 @@ function saveBestScore(key, value) {
         localStorage.setItem(key, value);
     }
 }
+function sendScore() {
+    const subject = "Mi score HSK 1 🎮";
+    const body = `
+Mi resultado en HSK 1:
 
+Modo: ${mode}
+Dificultad: ${difficulty}
+Score: ${score}
+
+¡Inténtalo tú también!
+`;
+
+    window.location.href =
+        "mailto:?subject=" +
+        encodeURIComponent(subject) +
+        "&body=" +
+        encodeURIComponent(body);
+}
 // ---------- MODOS ----------
 function startGame() {
     mode = "game";
@@ -239,3 +259,4 @@ function checkAnswer(button, answer) {
 
 </body>
 </html>
+
