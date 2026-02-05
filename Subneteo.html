@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Calculadora de Subneteo</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #0f172a;
+        color: #e5e7eb;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .card {
+        background: #020617;
+        padding: 25px;
+        border-radius: 12px;
+        width: 350px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.6);
+    }
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    label {
+        display: block;
+        margin-top: 10px;
+        font-size: 14px;
+    }
+    input {
+		width: 100%;
+		height: 42px;
+		padding: 0 12px;
+		border-radius: 8px;
+		box-sizing: border-box;
+		font-size: 15px;
+    }
+    button {
+        width: 100%;
+        margin-top: 15px;
+        padding: 10px;
+        background: #2563eb;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+		button {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+}
+    }
+    button:hover {
+        background: #3f4cff;
+    }
+    .result {
+        margin-top: 15px;
+        font-size: 14px;
+        background: #020617;
+        padding: 10px;
+        border-radius: 8px;
+    }
+</style>
+</head>
+
+<body>
+<div class="card">
+    <h2>Calculadora de Subneteo</h2>
+
+    <label>IP Base</label>
+    <input type="text" id="ip" placeholder="192.168.1.0">
+
+    <label>Prefijo</label>
+    <input type="number" id="cidr" placeholder="24" min="1" max="30">
+
+    <button onclick="calcular()">Calcular</button>
+
+    <div class="result" id="resultado"></div>
+</div>
+
+<script>
+function ipANum(ip) {
+    let p = ip.split(".");
+    return (
+        (parseInt(p[0]) << 24) >>> 0 |
+        (parseInt(p[1]) << 16) |
+        (parseInt(p[2]) << 8) |
+        parseInt(p[3])
+    ) >>> 0;
+}
+
+function numAIP(num) {
+    return [
+        (num >>> 24) & 255,
+        (num >>> 16) & 255,
+        (num >>> 8) & 255,
+        num & 255
+    ].join(".");
+}
+
+function calcular() {
+    let ip = document.getElementById("ip").value.trim();
+    let cidr = parseInt(document.getElementById("cidr").value);
+
+    if (!/^(\d{1,3}\.){3}\d{1,3}$/.test(ip) || cidr < 1 || cidr > 30) {
+        alert("IP o CIDR inválidos");
+        return;
+    }
+
+    let ipNum = ipANum(ip);
+    let hostsTotales = Math.pow(2, 32 - cidr) >>> 0;
+
+    let mask = ~(hostsTotales - 1) >>> 0;
+    let red = ipNum & mask;
+    let broadcast = (red + hostsTotales - 1) >>> 0;
+
+    let primera = red + 1;
+    let ultima = broadcast - 1;
+
+    document.getElementById("resultado").innerHTML = `
+        <b>Red:</b> ${numAIP(red)}<br>
+        <b>Primera IP:</b> ${numAIP(primera)}<br>
+        <b>Última IP:</b> ${numAIP(ultima)}<br>
+        <b>Broadcast:</b> ${numAIP(broadcast)}<br>
+        <b>Hosts utilizables:</b> ${hostsTotales - 2}
+    `;
+}
+</script>
