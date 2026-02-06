@@ -204,11 +204,13 @@ function check(ans,btn) {
   scoreEl.innerHTML = `Score: <strong>${score}</strong>`;
   livesEl.innerText = "❤️".repeat(lives);
 
-  if (mode !== "game" && lives === 0) {
-    saveScore();
-    exitBtn.style.display = "block";
-    return;
-  }
+if (mode !== "game" && lives === 0) {
+  saveScore();
+  setTimeout(() => {
+    backToMenu();   // 🔥 vuelve al menú y recarga ranking
+  }, 800);
+  return;
+}
 
   setTimeout(loadWord, 800);
 }
@@ -239,3 +241,4 @@ const playerNameInput = document.getElementById("playerName");
 
 </body>
 </html>
+
