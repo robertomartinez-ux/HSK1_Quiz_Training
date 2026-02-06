@@ -110,11 +110,21 @@ async function loadRanking() {
   const ranking = document.getElementById("ranking");
   ranking.innerHTML = "";
 
-  snapshot.forEach((doc, index) => {
+  if (snapshot.empty) {
+    ranking.innerHTML = "<li>Sin registros aún</li>";
+    return;
+  }
+
+  const medals = ["🥇","🥈","🥉"];
+  let pos = 0;
+
+  snapshot.forEach(doc => {
     const { name, score } = doc.data();
-    ranking.innerHTML += `<li>${["🥇","🥈","🥉"][index]} ${name} - ${score}</li>`;
+    ranking.innerHTML += `<li>${medals[pos]} ${name} - ${score}</li>`;
+    pos++;
   });
 }
+
 
 loadRanking();
 
@@ -132,6 +142,7 @@ const words = [
 /* SAVE SCORE */
 async function saveScore() {
   if (!playerName || score <= 0) return;
+
   await addDoc(collection(db,"scores"), {
     name: playerName,
     score: score,
@@ -250,6 +261,7 @@ const playerNameInput = document.getElementById("playerName");
 
 </body>
 </html>
+
 
 
 
