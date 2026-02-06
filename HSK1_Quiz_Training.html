@@ -100,32 +100,24 @@ const db = getFirestore(app);
 
 /* 🏆 RANKING */
 async function loadRanking() {
-  try {
-    const q = query(
-      collection(db, "scores"),
-      orderBy("score", "desc"),
-      limit(3)
-    );
+  const ranking = document.getElementById("ranking");
+  ranking.innerHTML = "Cargando...";
 
-    const snapshot = await getDocs(q);
-    const ranking = document.getElementById("ranking");
-    ranking.innerHTML = "";
+  const snapshot = await getDocs(collection(db, "scores"));
 
-    if (snapshot.empty) {
-      ranking.innerHTML = "<li>Sin registros aún</li>";
-      return;
-    }
+  ranking.innerHTML = "";
 
-    snapshot.forEach((doc, index) => {
-      const { name, score } = doc.data();
-      const medal = ["🥇","🥈","🥉"][index] || "";
-      ranking.innerHTML += `<li>${medal} ${name} – ${score}</li>`;
-    });
-
-  } catch (e) {
-    console.error("Error cargando ranking:", e);
+  if (snapshot.empty) {
+    ranking.innerHTML = "<li>No hay documentos</li>";
+    return;
   }
+
+  snapshot.forEach(doc => {
+    const d = doc.data();
+    ranking.innerHTML += `<li>${d.name} - ${d.score}</li>`;
+  });
 }
+
 loadRanking();
 
 /* STATE */
@@ -260,5 +252,6 @@ const playerNameInput = document.getElementById("playerName");
 
 </body>
 </html>
+
 
 
